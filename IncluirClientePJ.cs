@@ -114,6 +114,7 @@ namespace QuiverPro
 
 
                     driver.FindElement(By.Id("Cliente_InscrEstadual")).SendKeys(Cnpj.GerarRG());
+
                     driver.FindElement(By.Id("Cliente_DataNascimento")).SendKeys("01/01/1995");
 
        
