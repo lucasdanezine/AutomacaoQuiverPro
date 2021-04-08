@@ -68,6 +68,18 @@ namespace QuiverPro
 
             driver.FindElement(By.Id("BtIncluir")).Click();
 
+            System.Threading.Thread.Sleep(5000);
+            driver.SwitchTo().Frame("ZonaInterna");
+            {//processo para clicar e selecionar em combos dinamicos.
+                driver.FindElement(By.XPath("//*[@id=\"DIVDocumento_Cliente\"]/div/span/span[1]/span")).Click();
+                
+                driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys("Lucas Teste Automacao");
+                System.Threading.Thread.Sleep(2000);
+                driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys(Keys.Down);
+                driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys(Keys.Enter);
+            }
+
+            driver.FindElement(By.Id("Documento_Apolice")).SendKeys("TESTE123");
         }
     }
 }
