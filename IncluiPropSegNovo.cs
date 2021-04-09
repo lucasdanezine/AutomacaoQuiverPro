@@ -69,17 +69,43 @@ namespace QuiverPro
             driver.FindElement(By.Id("BtIncluir")).Click();
 
             System.Threading.Thread.Sleep(5000);
+            
+            //Driver entrando no iframe para acesso ao form de cadastro.
             driver.SwitchTo().Frame("ZonaInterna");
             {//processo para clicar e selecionar em combos dinamicos.
                 driver.FindElement(By.XPath("//*[@id=\"DIVDocumento_Cliente\"]/div/span/span[1]/span")).Click();
                 
-                driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys("Lucas Teste Automacao");
+                driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys("CADASTRO ROBO PARA INCLUIR SEGUROS");
                 System.Threading.Thread.Sleep(2000);
                 driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys(Keys.Down);
                 driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys(Keys.Enter);
             }
 
+            
             driver.FindElement(By.Id("Documento_Apolice")).SendKeys("TESTE123");
+
+
+            //Selecionando seguradora.
+            IWebElement seguradora = driver.FindElement(By.Id("Documento_Seguradora"));
+            SelectElement comboSeguradora = new SelectElement(seguradora);
+            comboSeguradora.SelectByValue("10126");
+            System.Threading.Thread.Sleep(2000);
+            //
+            IWebElement produto = driver.FindElement(By.Id("Documento_Produto"));
+            SelectElement comboProduto = new SelectElement(produto);
+            comboProduto.SelectByValue("553");
+
+            
+
+            {//para clicar e selecionar grupo de produção
+                driver.FindElement(By.XPath("//*[@id=\"DIVDocumento_GrupoHierarquico\"]/div/span/span[1]/span")).Click();
+                driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys("quiver");
+                System.Threading.Thread.Sleep(2000);
+                driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys(Keys.Down);
+                driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys(Keys.Enter);
+            }
+
+
         }
     }
 }

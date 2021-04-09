@@ -80,8 +80,8 @@ namespace QuiverPro
                         driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys(Keys.Enter);
                     }
             
-                    //Selecionando caracteristica. quase chorei pra fazer funcionar.
-                    IWebElement elemento = driver.FindElement(By.Id("Cliente_Caracteristica"));
+            //Selecionando caracteristica. quase chorei pra fazer funcionar.
+            IWebElement elemento = driver.FindElement(By.Id("Cliente_Caracteristica"));
             SelectElement combo = new SelectElement(elemento);
             combo.SelectByIndex(2);
             System.Threading.Thread.Sleep(2000);
