@@ -69,19 +69,19 @@ namespace QuiverPro
             driver.FindElement(By.Id("BtIncluir")).Click();
 
             System.Threading.Thread.Sleep(5000);
-            
+
             //Driver entrando no iframe para acesso ao form de cadastro.
             driver.SwitchTo().Frame("ZonaInterna");
             {//processo para clicar e selecionar em combos dinamicos.
                 driver.FindElement(By.XPath("//*[@id=\"DIVDocumento_Cliente\"]/div/span/span[1]/span")).Click();
-                
+
                 driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys("CADASTRO ROBO PARA INCLUIR SEGUROS");
                 System.Threading.Thread.Sleep(2000);
                 driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys(Keys.Down);
                 driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys(Keys.Enter);
             }
 
-            
+
             driver.FindElement(By.Id("Documento_Apolice")).SendKeys("TESTE123");
 
 
@@ -95,7 +95,7 @@ namespace QuiverPro
             SelectElement comboProduto = new SelectElement(produto);
             comboProduto.SelectByValue("553");
 
-            
+
 
             {//para clicar e selecionar grupo de produção
                 driver.FindElement(By.XPath("//*[@id=\"DIVDocumento_GrupoHierarquico\"]/div/span/span[1]/span")).Click();
@@ -104,7 +104,16 @@ namespace QuiverPro
                 driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys(Keys.Down);
                 driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys(Keys.Enter);
             }
+            {// Executa a inclusão do inicio de vigência. 
+             // Pega o dia da execução e usa como vigencia.
+                DateTime iniVigencia = DateTime.Today;
+                driver.FindElement(By.Id("Documento_InicioVigencia")).SendKeys(iniVigencia.ToString());
+                driver.FindElement(By.Id("Documento_InicioVigencia")).SendKeys(Keys.Tab);
+                driver.FindElement(By.Id("Documento_DataEmissao")).SendKeys(iniVigencia.ToString());
+                driver.FindElement(By.Id("Documento_TipoNegocio1")).Click();
+                driver.FindElement(By.Id("BtGravar")).Click();
 
+            }
 
         }
     }
