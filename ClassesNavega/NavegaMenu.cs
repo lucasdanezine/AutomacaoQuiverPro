@@ -42,6 +42,7 @@ namespace QuiverPro
         public IWebDriver NavegaOperacional(IWebDriver navega)
         {
             IWebDriver driver = navega;
+            System.Threading.Thread.Sleep(1000);
             driver.FindElement(By.XPath("//*[@id=\"MenuTopo\"]/header/div[1]/div[1]/div[1]/i")).Click();
             driver.FindElement(By.XPath("//*[@id=\"navSide\"]/div[6]/a")).Click();
             System.Threading.Thread.Sleep(4000);
