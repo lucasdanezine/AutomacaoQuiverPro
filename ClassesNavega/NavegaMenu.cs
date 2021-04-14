@@ -201,5 +201,27 @@ namespace QuiverPro
             System.Threading.Thread.Sleep(4000);
             return driver;
         }
+
+        public IWebDriver BtnGravar(IWebDriver navega)
+        {
+            IWebDriver driver = navega;
+            driver.FindElement(By.Id("BtGravar")).Click();
+
+            try
+            {
+                System.Threading.Thread.Sleep(4000);
+                driver.SwitchTo().DefaultContent();
+                driver.FindElement(By.Id("swalbtn1")).Click();
+                System.Threading.Thread.Sleep(10000);
+                driver.SwitchTo().Frame("ZonaInterna");
+            }
+            catch (Exception e)
+            {
+                System.Threading.Thread.Sleep(10000);
+                driver.SwitchTo().Frame("ZonaInterna");
+            };
+
+            return driver; 
+        }
     }
 }

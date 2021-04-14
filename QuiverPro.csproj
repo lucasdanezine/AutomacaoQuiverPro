@@ -60,6 +60,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ClassesNavega\CadastroItemAuto.cs" />
     <Compile Include="ClassesNavega\DadosLogin.cs" />
     <Compile Include="ClassesNavega\FormatCnpjCpf.cs" />
     <Compile Include="ClassesNavega\GeradorCpfCnpj.cs" />
