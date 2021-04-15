@@ -11,7 +11,7 @@ namespace QuiverPro
 {
     class NavegaMenu
     {
-      
+
         public IWebDriver NavegaInicio(IWebDriver navega)
         {
             IWebDriver driver = navega;
@@ -219,9 +219,19 @@ namespace QuiverPro
             {
                 System.Threading.Thread.Sleep(10000);
                 driver.SwitchTo().Frame("ZonaInterna");
-            };
+            }
 
-            return driver; 
+            return driver;
+        }
+
+        public IWebDriver NavegaScroll(IWebDriver navega, string localizador)
+        {
+            //Essa função navega até um determinado ponto da página. esse ponto é determinado pelo id passado na chamada.
+            IWebDriver driver = navega;
+            IJavaScriptExecutor jsAbrePremios = (IJavaScriptExecutor)driver;
+            IWebElement positionPremio = driver.FindElement(By.Id(localizador));
+            jsAbrePremios.ExecuteScript("window.scrollBy(0, arguments[0])", positionPremio.Location.Y);
+            return driver;
         }
     }
 }

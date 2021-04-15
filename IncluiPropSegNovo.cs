@@ -133,44 +133,80 @@ namespace QuiverPro
             }
             #endregion
             #region Cadastro Item.
-            // driver = cadItem.CadItemAuto(driver);
+             //  driver = cadItem.CadItemAuto(driver);
             #endregion
 
             #region Cadastro de prêmio.
-            //Gambiarra para expandir o formulário de prêmio.
-            driver.SwitchTo().Frame("ZonaInterna");
-            IJavaScriptExecutor jsAbrePremios = (IJavaScriptExecutor)driver;
-            jsAbrePremios.ExecuteScript("document.getElementById('BoxPremios').style=''");
-            jsAbrePremios.ExecuteScript("openBoxPremios()");
+            {
 
-            
-            System.Threading.Thread.Sleep(2000);
-            IWebElement meioPagamento = driver.FindElement(By.Id("Documento_MeioPagto"));
-            SelectElement comboMeioPag = new SelectElement(meioPagamento);
-            comboMeioPag.SelectByValue("7");
-            driver.FindElement(By.Id("Documento_QtdeParcPremio")).Clear();
-            driver.FindElement(By.Id("Documento_QtdeParcPremio")).SendKeys("12");
-            driver.FindElement(By.Id("Documento_ParcelaInicial")).Clear();
-            driver.FindElement(By.Id("Documento_ParcelaInicial")).SendKeys("1");
-            driver.FindElement(By.Id("Documento_FormaPagamento1")).Click();
-            driver.FindElement(By.Id("Documento_TipoDesc0")).Click();
-            DateTime dtDiasVencPriParc = DateTime.Today.AddDays(5);
-            driver.FindElement(By.Id("Documento_DiasVencPrimeira")).Clear();
-            driver.FindElement(By.Id("Documento_DiasVencPrimeira")).SendKeys(dtDiasVencPriParc.Day.ToString());
-            driver.FindElement(By.Id("Documento_PercComBase")).SendKeys(Keys.Control + "a");
-            driver.FindElement(By.Id("Documento_PercComBase")).SendKeys("20");
-            driver.FindElement(By.Id("Documento_PercDesconto")).SendKeys(Keys.Control + "a");
-            driver.FindElement(By.Id("Documento_PercDesconto")).SendKeys("5");
-            driver.FindElement(By.Id("Documento_PercDesconto")).SendKeys(Keys.Tab);
-            System.Threading.Thread.Sleep(2000);
-            driver.FindElement(By.Id("Documento_PremioLiqDesc")).SendKeys(Keys.Control + "a");
-            driver.FindElement(By.Id("Documento_PremioLiqDesc")).SendKeys("10000");
-            System.Threading.Thread.Sleep(2000);
-            driver = navega.BtnGravar(driver);
+                System.Threading.Thread.Sleep(2000);
+                driver.SwitchTo().DefaultContent();
+                driver.SwitchTo().Frame("ZonaInterna");
+                driver.SwitchTo().Frame("ZonaInterna");
+                System.Threading.Thread.Sleep(2000);
+                driver = navega.NavegaScroll(driver, "TitPremios");
+                driver.FindElement(By.Id("TitPremios")).Click();
+
+
+                System.Threading.Thread.Sleep(2000);
+                IWebElement meioPagamento = driver.FindElement(By.Id("Documento_MeioPagto"));
+                SelectElement comboMeioPag = new SelectElement(meioPagamento);
+                comboMeioPag.SelectByValue("7");
+                driver.FindElement(By.Id("Documento_QtdeParcPremio")).Clear();
+                driver.FindElement(By.Id("Documento_QtdeParcPremio")).SendKeys("12");
+                driver.FindElement(By.Id("Documento_ParcelaInicial")).Clear();
+                driver.FindElement(By.Id("Documento_ParcelaInicial")).SendKeys("1");
+                driver.FindElement(By.Id("Documento_FormaPagamento1")).Click();
+                driver.FindElement(By.Id("Documento_TipoDesc0")).Click();
+                DateTime dtDiasVencPriParc = DateTime.Today.AddDays(5);
+                driver.FindElement(By.Id("Documento_DiasVencPrimeira")).Clear();
+                driver.FindElement(By.Id("Documento_DiasVencPrimeira")).SendKeys(dtDiasVencPriParc.Day.ToString());
+                driver.FindElement(By.Id("Documento_PercComBase")).SendKeys(Keys.Control + "a");
+                driver.FindElement(By.Id("Documento_PercComBase")).SendKeys("20");
+                driver.FindElement(By.Id("Documento_PercDesconto")).SendKeys(Keys.Control + "a");
+                driver.FindElement(By.Id("Documento_PercDesconto")).SendKeys("5");
+                driver.FindElement(By.Id("Documento_PercDesconto")).SendKeys(Keys.Tab);
+                System.Threading.Thread.Sleep(2000);
+                driver.FindElement(By.Id("Documento_PremioLiqDesc")).SendKeys(Keys.Control + "a");
+                driver.FindElement(By.Id("Documento_PremioLiqDesc")).SendKeys("10000");
+                System.Threading.Thread.Sleep(2000);
+                driver = navega.BtnGravar(driver);
+            }
             #endregion
 
+            #region validação do cálculo de prêmios, comissão e repasse.
+            {
+                driver.SwitchTo().DefaultContent();
+                driver.SwitchTo().Frame("ZonaInterna");
+                driver.SwitchTo().Frame("ZonaInterna");
+                System.Threading.Thread.Sleep(5000);
+                driver = navega.NavegaScroll(driver, "TitPremios");
+                driver.FindElement(By.Id("TitPremios")).Click();
+                System.Threading.Thread.Sleep(2000);
+
+                double percComissao = double.Parse(driver.FindElement(By.Id("Documento_PercComissao")).GetAttribute("value"));
+                double valorPremLiquido = double.Parse(driver.FindElement(By.Id("Documento_PremioLiqDesc")).GetAttribute("value"));
+                
+                //Navegando até a div de comissões.
+                driver = navega.NavegaScroll(driver, "TitComissoes");
+                driver.FindElement(By.Id("TitComissoes")).Click();
+                double valorComissao = double.Parse(driver.FindElement(By.Id("Documento_Comissao")).GetAttribute("value"));
+                double res = valorPremLiquido * (percComissao / 100);
+
+                 if (Math.Round(res,2) == valorComissao || (valorComissao - Math.Round(res, 2)) == 0.01 || (valorComissao - Math.Round(res, 2)) == -0.01)
+                {
+                   driver.FindElement(By.Id("BtProdutores")).Click();
+                   driver.SwitchTo().DefaultContent();
+                   System.Threading.Thread.Sleep(3000);
+                   //driver.FindElement(By.XPath("//*[@id=\"1691838, 0, 2, 1000910\"]/td[1]")).Click();
 
 
+                }
+
+            }
+            #endregion
+
+            //driver.Quit();
         }
     }
 }

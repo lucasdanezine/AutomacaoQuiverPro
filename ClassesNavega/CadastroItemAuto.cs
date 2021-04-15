@@ -106,6 +106,7 @@ namespace QuiverPro.ClassesNavega
                         comboCobertura.SelectByValue("346");
                         System.Threading.Thread.Sleep(3000);
                         driver.FindElement(By.Id("DocumentoIteCob_TemFranquia")).Click();
+                        System.Threading.Thread.Sleep(3000);
                         driver.FindElement(By.Id("DocumentoIteCob_DetalheCob")).SendKeys("teste complemento.");
                         driver.FindElement(By.Id("BtGravar")).Click();
                         System.Threading.Thread.Sleep(3000);
