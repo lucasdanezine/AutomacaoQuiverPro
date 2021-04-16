@@ -205,6 +205,7 @@ namespace QuiverPro
         public IWebDriver BtnGravar(IWebDriver navega)
         {
             IWebDriver driver = navega;
+            System.Threading.Thread.Sleep(3000);
             driver.FindElement(By.Id("BtGravar")).Click();
 
             try

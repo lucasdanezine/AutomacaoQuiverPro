@@ -94,7 +94,7 @@ namespace QuiverPro
                 driver.FindElement(By.XPath("//*[@id=\"DIVDocumento_Cliente\"]/div/span/span[1]/span")).Click();
 
                 driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys("CADASTRO ROBO PARA INCLUIR SEGUROS");
-                System.Threading.Thread.Sleep(2000);
+                System.Threading.Thread.Sleep(3000);
                 driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys(Keys.Down);
                 driver.FindElement(By.XPath("/html/body/span[2]/span/span[1]/input")).SendKeys(Keys.Enter);
             }
@@ -133,7 +133,7 @@ namespace QuiverPro
             }
             #endregion
             #region Cadastro Item.
-             //  driver = cadItem.CadItemAuto(driver);
+            //  driver = cadItem.CadItemAuto(driver);
             #endregion
 
             #region Cadastro de prêmio.
@@ -186,21 +186,69 @@ namespace QuiverPro
 
                 double percComissao = double.Parse(driver.FindElement(By.Id("Documento_PercComissao")).GetAttribute("value"));
                 double valorPremLiquido = double.Parse(driver.FindElement(By.Id("Documento_PremioLiqDesc")).GetAttribute("value"));
-                
+
                 //Navegando até a div de comissões.
                 driver = navega.NavegaScroll(driver, "TitComissoes");
                 driver.FindElement(By.Id("TitComissoes")).Click();
                 double valorComissao = double.Parse(driver.FindElement(By.Id("Documento_Comissao")).GetAttribute("value"));
                 double res = valorPremLiquido * (percComissao / 100);
 
-                 if (Math.Round(res,2) == valorComissao || (valorComissao - Math.Round(res, 2)) == 0.01 || (valorComissao - Math.Round(res, 2)) == -0.01)
+                if (Math.Round(res, 2) == valorComissao || (valorComissao - Math.Round(res, 2)) == 0.01 || (valorComissao - Math.Round(res, 2)) == -0.01)
                 {
-                   driver.FindElement(By.Id("BtProdutores")).Click();
-                   driver.SwitchTo().DefaultContent();
-                   System.Threading.Thread.Sleep(3000);
-                   //driver.FindElement(By.XPath("//*[@id=\"1691838, 0, 2, 1000910\"]/td[1]")).Click();
+                    //Acessa o botão produtores.
+                    driver.FindElement(By.Id("BtProdutores")).Click();
+                    //volta para o body inicial.
+                    driver.SwitchTo().DefaultContent();
+                    System.Threading.Thread.Sleep(3000);
+                    //seleciona o scopo do iframe de repasses 
+                    driver.SwitchTo().Frame("DocumentoRepasse");
+                    System.Threading.Thread.Sleep(3000);
+                    //Seleciona o produtor baseado no title contendo o nome do produtor.
+                    driver.FindElement(By.XPath("//*[contains(@title, 'WELLINGTON CARDOSO')]")).Click();
 
+                    //driver.SwitchTo().Frame("DocumentoRepasse");
+                    System.Threading.Thread.Sleep(2500);
+                    //iniciado o processo de validação da quantidade de parcelas.
+                    string docparcrep = driver.FindElement(By.Id("DocumentoRep_QtdeParcelas")).GetAttribute("value");
+                    int qtdParcRep = int.Parse(docparcrep);
 
+                    driver.SwitchTo().DefaultContent();
+                    driver.SwitchTo().Frame("DocumentoRepasse");
+                    System.Threading.Thread.Sleep(2000);
+                    driver = navega.NavegaScroll(driver, "labelDocumentoRep_Inclusao_Automatica");
+                    System.Threading.Thread.Sleep(2000);
+                    driver.FindElement(By.Id("TitDocumentoRepasseParc")).Click();
+                    System.Threading.Thread.Sleep(2000);
+                    double somaRep = 0;
+                    System.Threading.Thread.Sleep(3000);
+                    int j = 2;
+                    for (int i = 0; i < qtdParcRep; i++)
+                    {
+
+                        System.Threading.Thread.Sleep(2000);
+                        driver.SwitchTo().Frame("FrameDocumentoRepasseParc");
+                        driver.FindElement(By.XPath("/html/body/form/div[3]/div/span[1]/span/div/div[3]/div[3]/div/table/tbody/tr["+j.ToString()+"]/td[1]/a")).Click();
+                        j++;                       
+                        System.Threading.Thread.Sleep(3000);
+                        driver.SwitchTo().DefaultContent();
+                        driver.SwitchTo().Frame("DocumentoRepasse");
+                        driver.SwitchTo().Frame("ZonaInterna");
+                        System.Threading.Thread.Sleep(3000);
+                        driver.FindElement(By.Id("DocumentoParcRep_Operacao1")).Click();
+                        somaRep = somaRep + double.Parse(driver.FindElement(By.Id("DocumentoParcRep_Valor")).GetAttribute("value"));
+                        driver.FindElement(By.Id("Button1")).Click();
+                        System.Threading.Thread.Sleep(4000);
+                        driver.SwitchTo().DefaultContent();
+                        driver.FindElement(By.XPath("/html/body/div[5]/div/div[3]/button[1]")).Click();
+                        System.Threading.Thread.Sleep(10000);
+                        driver.SwitchTo().DefaultContent();
+                        driver.SwitchTo().Frame("DocumentoRepasse");
+                        System.Threading.Thread.Sleep(2000);
+                        driver = navega.NavegaScroll(driver, "labelDocumentoRep_Inclusao_Automatica");
+                        System.Threading.Thread.Sleep(2000);
+                        
+                    }
+                  
                 }
 
             }
