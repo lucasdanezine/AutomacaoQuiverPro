@@ -16,7 +16,7 @@ namespace QuiverPro
     /// Descrição resumida para IncluiPropSegNovo
     /// </summary>
     [TestClass]
-    public class IncluiPropSegNovo
+    public class IncluiPropSegRenOutra
     {
 
         #region Atributos de teste adicionais
@@ -42,7 +42,7 @@ namespace QuiverPro
         #endregion
 
         [TestMethod]
-        public void IncluirSegNovo()
+        public void IncluirSegRenOutra()
         {
             #region Classes utilizadas para login e navegação ate o modulo.
             //Classe que faz login no sistema.
@@ -72,10 +72,10 @@ namespace QuiverPro
             js.ExecuteScript("SelecionaModuloJQuery('ConsultaEmissaoERecusa;Fast/FrmCadastroNovo.aspx?pagina=Documento','EMISSOESRECUSAS','Professional','EMISSOESRECUSAS','Propostas/Apólices'); ");
             System.Threading.Thread.Sleep(5000);
 
-            //gerando o número de apólice, ROB+DATA DO CADASTRO+AT (Apolice Tipo) e o número 1 de seguro novo. 
+            //gerando o número de apólice, ROB+DATA DO CADASTRO+AT (Apolice Tipo) e o número 3 de renovação outra corretora. 
 
             string apolice = "";
-            int n = 1;
+            int n = 3;
 
             DateTime numeroApolice = DateTime.Today;
             apolice = "ROB" + numeroApolice.ToString("dd/MM/yyyy") + "AT" + n;
@@ -128,29 +128,38 @@ namespace QuiverPro
                 driver.FindElement(By.Id("Documento_InicioVigencia")).SendKeys(iniVigencia.ToString());
                 driver.FindElement(By.Id("Documento_InicioVigencia")).SendKeys(Keys.Tab);
                 driver.FindElement(By.Id("Documento_DataEmissao")).SendKeys(iniVigencia.ToString());
-                driver.FindElement(By.Id("Documento_TipoNegocio1")).Click();
+                driver.FindElement(By.Id("Documento_TipoNegocio3")).Click();
                 System.Threading.Thread.Sleep(1000);
+
                 //driver.FindElement(By.Id("BtGravar")).Click();
                 driver = navega.BtnGravar(driver);
-
-
             }
             #endregion
+
+            #region Dados renovação
+            System.Threading.Thread.Sleep(4000);
+            driver.SwitchTo().Frame("ZonaInterna");
+            driver = navega.NavegaScroll(driver, "TitDocsRenovados");
+            System.Threading.Thread.Sleep(3000);
+            driver.FindElement(By.Id("BtIncluirDocsRenovados")).Click();
+            System.Threading.Thread.Sleep(4000);            
+            #endregion
+
             #region Cadastro Item.
-            driver = cadItem.CadItemAuto(driver);
+            //   driver = cadItem.CadItemAuto(driver);
             #endregion
 
             #region cadastro de prêmio.
             // Cadastro de premio em proposta/seguros
-            driver = premioCadastro.CadastraPremio(driver, navega, 20, 5, 10000);
+            //   driver = premioCadastro.CadastraPremio(driver, navega, 20, 5, 10000);
             #endregion
 
             //validação de comissão e repasse.
             #region validação do cálculo de prêmios, comissão e repasse.
-            driver = comissaoCadastro.ValidaComRepNormalParc(driver, navega);
+            // driver = comissaoCadastro.ValidaComRepNormalParc(driver, navega);
             #endregion
 
-            driver.Quit();
+            // driver.Quit();
         }
     }
 }
