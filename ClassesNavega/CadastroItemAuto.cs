@@ -73,7 +73,7 @@ namespace QuiverPro.ClassesNavega
                         System.Threading.Thread.Sleep(4000);
                         driver.SwitchTo().Frame("ZonaInterna");
 
-                        System.Threading.Thread.Sleep(3000);
+                        System.Threading.Thread.Sleep(5000);
                         driver.FindElement(By.Id("DocumentoIteCob_ImpSegurada")).SendKeys(Keys.Control + "A");
                         driver.FindElement(By.Id("DocumentoIteCob_ImpSegurada")).SendKeys(Keys.Delete);
                         driver.FindElement(By.Id("DocumentoIteCob_ImpSegurada")).SendKeys("1000,00");

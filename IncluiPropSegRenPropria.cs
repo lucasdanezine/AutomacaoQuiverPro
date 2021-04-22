@@ -16,7 +16,7 @@ namespace QuiverPro
     /// Descrição resumida para IncluiPropSegNovo
     /// </summary>
     [TestClass]
-    public class IncluiPropSegRenOutra
+    public class IncluiPropSegRenPropria
     {
 
         #region Atributos de teste adicionais
@@ -42,7 +42,7 @@ namespace QuiverPro
         #endregion
 
         [TestMethod]
-        public void IncluirSegRenOutra()
+        public void IncluirSegRenPropria()
         {
             #region Classes utilizadas para login e navegação ate o modulo.
             //Classe que faz login no sistema.
@@ -128,7 +128,7 @@ namespace QuiverPro
                 driver.FindElement(By.Id("Documento_InicioVigencia")).SendKeys(iniVigencia.ToString());
                 driver.FindElement(By.Id("Documento_InicioVigencia")).SendKeys(Keys.Tab);
                 driver.FindElement(By.Id("Documento_DataEmissao")).SendKeys(iniVigencia.ToString());
-                driver.FindElement(By.Id("Documento_TipoNegocio3")).Click();
+                driver.FindElement(By.Id("Documento_TipoNegocio2")).Click();
                 System.Threading.Thread.Sleep(1000);
 
                 //driver.FindElement(By.Id("BtGravar")).Click();
@@ -136,24 +136,27 @@ namespace QuiverPro
             }
             #endregion
 
-            #region Dados renovação
+            #region Dados renovação propria
             System.Threading.Thread.Sleep(4000);
             driver.SwitchTo().Frame("ZonaInterna");
             driver = navega.NavegaScroll(driver, "TitDocsRenovados");
             System.Threading.Thread.Sleep(3000);
             driver.FindElement(By.Id("BtIncluirDocsRenovados")).Click();
             System.Threading.Thread.Sleep(4000);
+            driver.SwitchTo().DefaultContent();
+            driver.FindElement(By.XPath("/html/body/div[3]/div/div[3]/button[1]")).Click();
+            System.Threading.Thread.Sleep(3000);
+            driver.SwitchTo().Frame("ZonaInterna");
+            driver.SwitchTo().Frame("ZonaInterna");
             driver.SwitchTo().Frame("ZonaInterna");
             System.Threading.Thread.Sleep(1000);
-            driver.FindElement(By.Id("DocumentoRenovado_ApoliceRenovada")).SendKeys("123456");
-            driver.FindElement(By.Id("DocumentoRenovado_Seguradora_Bt")).Click();
+            driver.FindElement(By.Id("DocumentoRenovado_DocumentoRenov_Bt")).Click();
             System.Threading.Thread.Sleep(4000);
-            driver.SwitchTo().Frame("SearchSeguradoras1");
-            driver.FindElement(By.XPath("//*[@id=\"Nome\"]")).SendKeys("azul");
-            driver.FindElement(By.XPath("//*[@id=\"Nome\"]")).SendKeys(Keys.Enter);
+            driver.SwitchTo().Frame("SearchApolice3");
             System.Threading.Thread.Sleep(2500);
-            driver.FindElement(By.XPath("//*[contains(@onclick, 'RowDblClick(\"127\")') ]")).Click();
-            System.Threading.Thread.Sleep(2500);
+            driver.FindElement(By.XPath("/html/body/form/div[5]/div[2]/div[2]/div/div[3]/div[3]/div/table/tbody/tr[2]/td[1]/a")).Click();
+            System.Threading.Thread.Sleep(4000);
+
 
             for (int i = 0; i < 2; i++)
             {
@@ -164,6 +167,13 @@ namespace QuiverPro
                 if (i == 0)
                 {
                     driver.FindElement(By.Id("BtGravar")).Click();
+
+                    System.Threading.Thread.Sleep(5000);
+                    driver.SwitchTo().DefaultContent();
+                        driver.FindElement(By.Id("swalbtn1")).Click();
+                        System.Threading.Thread.Sleep(5000);
+                   
+
                 }
                 else
                 {
@@ -171,7 +181,6 @@ namespace QuiverPro
                 }
 
             }
-
 
             #endregion
             System.Threading.Thread.Sleep(10000);
@@ -191,7 +200,7 @@ namespace QuiverPro
             driver = comissaoCadastro.ValidaComRepNormalParc(driver, navega);
             #endregion
 
-            driver.Quit();
+             driver.Quit();
         }
     }
 }

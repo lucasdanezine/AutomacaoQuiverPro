@@ -68,6 +68,7 @@
     <Compile Include="ClassesNavega\GeradorCpfCnpj.cs" />
     <Compile Include="ClassesNavega\NavegaMenu.cs" />
     <Compile Include="IncluiPropSegNovo.cs" />
+    <Compile Include="IncluiPropSegRenPropria.cs" />
     <Compile Include="IncluirClientePF.cs" />
     <Compile Include="IncluirClientePJ.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
