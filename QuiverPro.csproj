@@ -74,6 +74,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AcessoNovoOrcamento.cs" />
     <Compile Include="IncluiPropSegRenOutra.cs" />
+    <Compile Include="TesteImpressaoSeguro.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

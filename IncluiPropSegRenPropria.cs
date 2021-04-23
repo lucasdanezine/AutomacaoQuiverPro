@@ -72,10 +72,10 @@ namespace QuiverPro
             js.ExecuteScript("SelecionaModuloJQuery('ConsultaEmissaoERecusa;Fast/FrmCadastroNovo.aspx?pagina=Documento','EMISSOESRECUSAS','Professional','EMISSOESRECUSAS','Propostas/Apólices'); ");
             System.Threading.Thread.Sleep(5000);
 
-            //gerando o número de apólice, ROB+DATA DO CADASTRO+AT (Apolice Tipo) e o número 3 de renovação outra corretora. 
+            //gerando o número de apólice, ROB+DATA DO CADASTRO+AT (Apolice Tipo) e o número 2 de renovação da propria corretora. 
 
             string apolice = "";
-            int n = 3;
+            int n = 2;
 
             DateTime numeroApolice = DateTime.Today;
             apolice = "ROB" + numeroApolice.ToString("dd/MM/yyyy") + "AT" + n;
