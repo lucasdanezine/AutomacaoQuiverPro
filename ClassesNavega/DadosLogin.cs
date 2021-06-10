@@ -23,7 +23,7 @@ namespace QuiverPro
         {
             licenca = "quiverproshift";
             usuario = "automacao";
-            senha = "123456789";
+            senha = "";
             
         }
 

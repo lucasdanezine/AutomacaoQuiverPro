@@ -87,6 +87,7 @@ namespace QuiverPro
                 {
                     driver.FindElement(By.XPath("/html/body/form/div[5]/div[1]/div/div/div/div[2]/div[1]/div[2]/div/div[" + i + "]/div/div/input")).Click();
                 }
+
                 driver.FindElement(By.Id("BtAnexar")).Click();
                 System.Threading.Thread.Sleep(15000);
                 driver.SwitchTo().DefaultContent();
